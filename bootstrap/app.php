@@ -91,9 +91,16 @@ $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 
 //for dingo api
 $app->register(Dingo\Api\Provider\LumenServiceProvider::class);
+
 $app['Dingo\Api\Auth\Auth']->extend('jwt', function ($app) {
     return new Dingo\Api\Auth\Provider\JWT($app['Tymon\JWTAuth\JWTAuth']);
 });
+//第二种方法，在auth.php中
+//'auth' => [
+//    'jwt' => 'Dingo\Api\Auth\Provider\JWT',
+//]
+Dingo\Api\Http\Response::addFormatter('json', new Dingo\Api\Http\Response\Format\Jsonp);
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
